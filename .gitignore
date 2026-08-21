@@ -1,0 +1,13 @@
+__pycache__/
+
+.venv/
+venv/
+ENV/
+env/
+pythonenv/
+
+.env
+.env.*
+.secrets
+*.local
+
