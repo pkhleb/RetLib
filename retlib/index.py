@@ -200,10 +200,12 @@ class BM25Index:
         ]
         texts = [_symbol_text((r[0], r[3], r[4])) for r in rows]
         tokenized = [t.lower().split() for t in texts]
-        self._bm25 = BM25Okapi(tokenized)
+        self._bm25 = BM25Okapi(tokenized) if tokenized else None
 
     def search(self, query: str, top_k: int = 10) -> list[dict]:
         """Return top_k results by BM25 score."""
+        if self._bm25 is None:
+            return []
         tokens = query.lower().split()
         scores = self._bm25.get_scores(tokens)
         ranked = sorted(
